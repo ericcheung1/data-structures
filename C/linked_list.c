@@ -46,12 +46,13 @@ struct person* getNewPerson(int age) {
 }
 
 void traverseList(struct person *current) {
-    while ((*current).next != NULL) {
+    while (current != NULL) {
         printf("Current Person Age: %d\n", (*current).age);
         current = (*current).next;
 
-        if ((*current).next == NULL) {
-            printf("Last Person Age: %d", (*current).age);
-        }
+        // if ((*current).next == NULL) {
+        //     printf("Last Person Age: %d", (*current).age);
+        // }
     }
+    printf("NULL\n");
 }

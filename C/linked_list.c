@@ -9,6 +9,9 @@ struct person {
 
 struct person* getNewPerson(int age);
 void traverseList(struct person *current);
+int linearSearch(struct person *current, int element);
+int countLength(struct person *head);
+struct person *insertNewHead(struct person *currentHead, int newData);
 
 int main() {
 
@@ -20,6 +23,21 @@ int main() {
     (*person2).next = person3;
 
     traverseList(person1);
+
+    int elementExist1 = linearSearch(person1, 25);
+    int elementExist2 = linearSearch(person2, 1);
+
+    (elementExist1 == 1 ? printf("Element Exists\n") : printf("Element Does Not Exist\n"));
+    (elementExist2 == 1 ? printf("Element Exists\n") : printf("Element Does Not Exist\n"));
+
+    printf("Length of this linked list: %d\n", countLength(person1));
+
+    
+
+    struct person *person0 = insertNewHead(person1, 23);
+
+    traverseList(person0);
+
 
     free(person1);
     free(person2);
@@ -47,12 +65,36 @@ struct person* getNewPerson(int age) {
 
 void traverseList(struct person *current) {
     while (current != NULL) {
-        printf("Current Person Age: %d\n", (*current).age);
+        printf("%d -> ", (*current).age);
         current = (*current).next;
-
-        // if ((*current).next == NULL) {
-        //     printf("Last Person Age: %d", (*current).age);
-        // }
     }
     printf("NULL\n");
 }
+
+int linearSearch(struct person *current, int element) {
+    while (current != NULL) {
+        if ((*current).age == element) {
+            return true;
+        }
+        current = (*current).next;
+    }
+    return false;
+}
+
+int countLength(struct person *head) {
+    struct person *current = head;
+    int length = 0;
+
+    while (current != NULL) {
+        length++;
+        current = (*current).next;
+    }
+    return length;
+}
+
+struct person *insertNewHead(struct person *currentHead, int newData) {
+    struct person *newHead = getNewPerson(newData);
+    (*newHead).next = currentHead;
+    return newHead;
+}
+
